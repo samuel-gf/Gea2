@@ -1,0 +1,12 @@
+title : Laberinto
+size_x : 3
+size_y : 2
+cells :
+  - name : start
+    x : 1
+    y : 1
+    mov : 1
+  - name : end
+    x : 3
+    y : 1
+    mov : 1
