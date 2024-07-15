@@ -3,9 +3,7 @@
 Es un tablero para jugar juegos de rol online como por ejemplo roll20. Escribo este código tan solo para
 familiarizarme con Golang.
 
-# Mis recursos para seguir aprendiendo
-
-## Links con tutoriales que me servirán de ayuda
+# Mis recursos para seguir aprendiendo con tutoriales
 
 - [Tutorial](https://github.com/anaseto/gruid-rltuto/tree/part-1)
 - [Tutorial Rust](https://www.reddit.com/r/roguelikedev/comments/101q4pl/rust_roguelike_tutorial_postmortem/)
