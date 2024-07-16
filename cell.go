@@ -6,11 +6,11 @@ import (
 )
 
 type Cell struct {
-	Name  string
-	Desc  string
-	Img   string
-	X     int
-	Y     int
-	Mov   float32
-	Image *ebiten.Image
+	Name  	string
+	Desc  	string
+	ImageId	string
+	X     	int
+	Y     	int
+	Mov   	float32
+	I	 	*ebiten.Image
 }

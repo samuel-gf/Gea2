@@ -13,7 +13,7 @@ bin:
 bin/server: server.go board.go cell.go command.go test.go
 	go build -o $@ $^
 
-bin/client: client.go board.go cell.go command.go test.go
+bin/client: client.go board.go cell.go command.go test.go token.go
 	go build -o $@ $^
 
 fmt:

@@ -1,12 +1,45 @@
 title : Laberinto
-size_x : 3
-size_y : 2
+size_x : 16
+size_y : 11
+bg : 001
 cells :
   - name : start
-    x : 1
-    y : 1
+    x : 2 
+    y : 2
     mov : 1
-  - name : end
+    i : bloque02
+  - name : pasillo
     x : 3
-    y : 1
+    y : 2
     mov : 1
+    i : bloque02
+  - name : pasillo
+    x : 4
+    y : 2
+    mov : 1
+    i : bloque02
+  - name : pasillo
+    x : 5
+    y : 2
+    mov : 1
+    i : bloque02
+  - name : end
+    x : 6
+    y : 2
+    mov : 1
+    i : bloque02
+  - name : pasillo
+    x : 3
+    y : 3
+    mov : 1
+    i : bloque02
+  - name : pasillo
+    x : 3
+    y : 4
+    mov : 1
+    i : bloque02
+  - name : pasillo
+    x : 4
+    y : 4
+    mov : 1
+    i : bloque02

@@ -6,6 +6,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"github.com/hajimehoshi/ebiten/v2"
 )
 
 const (
@@ -18,17 +19,13 @@ type Board struct {
 	Size_x int
 	Size_y int
 	Cells  [][]*Cell
+	Bg_file_name string
+	Bg  *ebiten.Image
+	//Tokens [10]Token
 }
-
-
-/*
-func board_load(filename string){
-	fmt.Println("HOLA", filename)
-}
-*/
 
 // Load from a yaml file
-func board_load(filename string) Board{
+func board_load(filename string) Board {
 	var b Board
 	var c *Cell = &Cell{X: -1, Y: -1}
 	// Open the file
@@ -54,6 +51,8 @@ func board_load(filename string) Board{
 				b.Size_x, _ = strconv.Atoi(val)
 			case "size_y":
 				b.Size_y, _ = strconv.Atoi(val)
+			case "bg":
+				b.Bg_file_name = val
 			case "cells":
 				read_mode = READ_MODE_CELLS
 				b.Cells = board_create_cells(b.Size_x, b.Size_y)
@@ -65,7 +64,7 @@ func board_load(filename string) Board{
 		case READ_MODE_CELLS: // Mode read cells
 			if sl_fields[0][2] == '-' { // New register
 				sl_fields[0] = sl_fields[0][3:]
-				if c.X!=-1 && c.Y!=-1 {
+				if c.X != -1 && c.Y != -1 {
 					b.Cells[c.X][c.Y] = c
 					c = &Cell{X: -1, Y: -1}
 				}
@@ -82,24 +81,54 @@ func board_load(filename string) Board{
 			case "mov":
 				f64, _ := strconv.ParseFloat(val, 32)
 				c.Mov = float32(f64)
+			case "i":
+				c.ImageId = val
 			}
 		}
 	}
 	b.Cells[c.X][c.Y] = c
+	board_show(b)
 	return b
 }
 
-func board_create_cells(x, y int) (c [][]*Cell){
+// Se usa para rellenar un tablero recien creado
+func board_create_cells(x, y int) (c [][]*Cell) {
 	c = make([][]*Cell, x+1)
 	for i := 0; i <= x; i++ { // Create columns
 		c[i] = make([]*Cell, y+1)
 	}
 	if x != 0 && y != 0 {
-		for col:=1; col<=y; col++ {
-			for fila:=1; fila<=x; fila++ {
-				c[fila][col] = &Cell{Name: "...", X: fila, Y:col}
+		for col := 1; col <= y; col++ {
+			for fila := 1; fila <= x; fila++ {
+				c[fila][col] = &Cell{Name: "no_name", X: fila, Y: col, Mov: 100, ImageId:"no_image_id"}
 			}
 		}
 	}
 	return c
+}
+
+func board_show(b Board) {
+	fmt.Println("Mostrar el tablero ", b.Size_x, "x", b.Size_y, "Fondo:",b.Bg_file_name)
+	var c = Cell{}
+	for y := 1; y <= b.Size_y; y++ {
+		for x := 1; x <= b.Size_x; x++ {
+			c = *b.Cells[x][y]
+			fmt.Println("- ", c.Name, c.X, c.Y, c.Mov, c.ImageId)
+		}
+	}
+}
+
+func board_show2(b Board) {
+	fmt.Println("MOSTREMOS")
+	board_show(b)
+	for y := 1; y <= b.Size_y; y++ {
+		for x := 1; x <= b.Size_x; x++ {
+			if b.Cells[x][y].Mov < 100 {
+				fmt.Print(" ")
+			} else {
+				fmt.Print("█")
+			}
+		}
+		fmt.Println()
+	}
 }
